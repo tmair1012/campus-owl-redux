@@ -1,17 +1,42 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
+from datetime import datetime
 
 #Create Flask instance
 app = Flask(__name__)
 
+#Create a DataBase
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///campus.db'
+#Secret Key
+app.config['SECRET_KEY'] = "Evans Cybercampus sucks and they should have hired me"
+#Initialize the Database
 db = SQLAlchemy(app)
 
+app.app_context().push()
+
+#Models
+class Teachers(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    date_added = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Create A String
+    def __repr__(self):
+        return '<Name %r>' % self.name
+
+#Homepage
+@app.route('/')
+def index():
+    return render_template('home.html')
 #Sign up (Add new user)
 
 #Teacher Login
 
 #Admin Login
+
+#Admin page
 
 #Edit Teacher
 
@@ -32,3 +57,7 @@ db = SQLAlchemy(app)
 
 
 
+if __name__ == "__main__":
+    app.secret_key='Shhhh'
+    app.config['SESSION_TYPE'] = 'filesystem'
+    app.run(port=5200)

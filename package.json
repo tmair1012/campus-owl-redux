@@ -1,0 +1,24 @@
+{
+  "name": "campus-owl-redux",
+  "version": "1.0.0",
+  "description": "Campus portal for all school tracking needs",
+  "main": "app.py",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "flask": "^0.2.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmair1012/campus-owl-redux.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tmair1012/campus-owl-redux/issues"
+  },
+  "homepage": "https://github.com/tmair1012/campus-owl-redux#readme"
+}
