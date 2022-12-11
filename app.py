@@ -6,21 +6,22 @@ from datetime import datetime
 #Create Flask instance
 app = Flask(__name__)
 
+
+    
+
 #Create a DataBase
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///campus.db'
 #Secret Key
-app.config['SECRET_KEY'] = "Evans Cybercampus sucks and they should have hired me"
+app.config['SECRET_KEY'] = 'verysecretwow'
 #Initialize the Database
 db = SQLAlchemy(app)
-
-app.app_context().push()
-
 #Models
 #Teacher Model
 class Teachers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
+    password = db.Column(db.String(80), nullable=False)
     campus = db.Column(db.String(100), nullable=False, unique=True)
     #admin = db.Column(db.boolean)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
@@ -39,6 +40,9 @@ class Student(db.Model):
     # Create A String
     def __repr__(self):
         return '<Name %r>' % self.name
+
+
+
 
 #Homepage
 @app.route('/')
