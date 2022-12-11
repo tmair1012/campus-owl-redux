@@ -16,13 +16,20 @@ db = SQLAlchemy(app)
 app.app_context().push()
 
 #Models
+#Teacher Model
 class Teachers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     campus = db.Column(db.String(100), nullable=False, unique=True)
+    #admin = db.Column(db.boolean)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
+    # Create A String
+    def __repr__(self):
+        return '<Name %r>' % self.name
+
+#Student Model
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -55,18 +62,31 @@ def admin():
 #Edit Teacher
 
 #Delete Teacher (Admin only)
+@app.route('/delete/<string:id>')
+def delete_teacher(id):
 
+    return render_template('teachers.html')
 #Add Student
+@app.route('/addStudent')
+def add_student():
 
+    return render_template('addStudent.html')
 #Update Student
 
 #Delete Student
+@app.route('/delete/<string:id>', methods=['GET', 'POST'])
+def delete_student():
 
+    return render_template('youStudents.html')
 #Get School Calender
 
 #Get Your students for homepage
 
 #Single Student Page
+@app.route('/<string:name>', methods=['GET', 'POST'])
+def single_student():
+
+    return render_template('singleStudent.html')
 
 
 
