@@ -20,6 +20,13 @@ class Teachers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
+    campus = db.Column(db.String(100), nullable=False, unique=True)
+    date_added = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    campus = db.Column(db.String(100), nullable=False, unique=True)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Create A String
@@ -28,16 +35,23 @@ class Teachers(db.Model):
 
 #Homepage
 @app.route('/')
-def index():
+def home():
     return render_template('home.html')
+
 #Sign up (Add new user)
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
 
 #Teacher Login
-
-#Admin Login
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 #Admin page
-
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
 #Edit Teacher
 
 #Delete Teacher (Admin only)
