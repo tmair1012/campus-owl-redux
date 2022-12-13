@@ -2,19 +2,19 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from datetime import datetime
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, ValidationError
 
 #Create Flask instance
 app = Flask(__name__)
-
-
-    
-
 #Create a DataBase
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///campus.db'
 #Secret Key
-app.config['SECRET_KEY'] = 'verysecretwow'
+app.config['SECRET_KEY'] = 'xxboompowxx'
 #Initialize the Database
 db = SQLAlchemy(app)
+
+
 #Models
 #Teacher Model
 class Teachers(db.Model):
@@ -41,7 +41,12 @@ class Student(db.Model):
     def __repr__(self):
         return '<Name %r>' % self.name
 
-
+#Forms
+class TeacherForm(FlaskForm):
+    name = StringField("Enter Your Name", validators=[DataRequired()])
+    email = StringField('Email')
+    password = PasswordField('Password')
+    submit = SubmitField("Submit")
 
 
 #Homepage
@@ -52,6 +57,8 @@ def home():
 #Sign up (Add new user)
 @app.route('/signup')
 def signup():
+    name = None
+    form = TeacherForm()
     return render_template('signup.html')
 
 #Teacher Login
@@ -70,6 +77,13 @@ def admin():
 def delete_teacher(id):
 
     return render_template('teachers.html')
+
+#Your Students
+@app.route('/yourStudents')
+def yourStudents():
+
+    return render_template('yourStudents.html')
+
 #Add Student
 @app.route('/addStudent')
 def add_student():
@@ -81,7 +95,7 @@ def add_student():
 @app.route('/delete/<string:id>', methods=['GET', 'POST'])
 def delete_student():
 
-    return render_template('youStudents.html')
+    return render_template('yourStudents.html')
 #Get School Calender
 
 #Get Your students for homepage
@@ -96,6 +110,4 @@ def single_student():
 
 
 if __name__ == "__main__":
-    app.secret_key='Shhhh'
-    app.config['SESSION_TYPE'] = 'filesystem'
     app.run(port=5200)
